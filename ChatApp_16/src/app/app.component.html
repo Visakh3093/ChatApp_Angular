@@ -1,0 +1,9 @@
+<ng-toast /> 
+<div class="relative h-screen w-full overflow-hidden bg-stone-200 ">
+     <app-loader *ngIf="loader" />
+     <app-modal *ngIf="modal" />
+     <app-client-profile *ngIf="profileModal" />
+     <app-group-modal *ngIf="groupModal" />
+     <app-selected-profile-modal *ngIf="selectedUserModal"/>
+  <router-outlet />
+</div>

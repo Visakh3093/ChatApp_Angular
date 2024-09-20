@@ -1,0 +1,99 @@
+<div *ngIf="selectedChat; else noChatSelected" class="h-[75vh]  overflow-y-auto rounded-xl" style="background-image: url('../../../../assets/bg.jpg');">
+    
+    <div class="header w-full h-[13%] bg-gray-50 px-4 py-3 flex justify-between">
+        <div class="first flex gap-4 items-center">
+            <div class="md:hidden"  (click)="goBack()">
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+            <div class="img w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+                <ng-container *ngIf="selectedChat.isGroupChat; else userImage">
+                    <div class="w-full h-full flex items-center justify-center relative">
+                        <input type="file" name="file" class="absolute inset-0 opacity-0 " id="file" disabled/>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-gray-500 w-8 h-8">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" stroke-width="2" d="M12 16v-4m0 0V8m0 4h4m-4 0H8"></path>
+                        </svg>
+                    </div>
+                </ng-container>
+                <ng-template #userImage >
+                    <img class="w-full h-full object-cover" src="../../../assets/profileImg1.jpg" alt="Profile Image" />
+                </ng-template>
+            </div>
+            <div class="flex flex-col cursor-pointer" (click)="getUserProfile()">
+                <div class="text text-lg font-semibold first-letter:capitalize">{{ selectedChat.isGroupChat ? selectedChat.chatName : getSender(selectedChat.users) }}</div>
+                <div class="flex gap-2 items-center">
+                    <div class="rounded-full w-2 h-2 bg-green-500"></div>
+                    <p class="text-xs">online</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="last flex justify-between gap-7 items-center pr-10">
+            
+            <div class="call cursor-pointer">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="video cursor-pointer">
+                <i class="fa-solid fa-video"></i>
+            </div>
+            <div class="more cursor-pointer" (click)="getUserProfile()">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="relative body h-[87%] w-full bg-cover bg-center lg:px-4 py-3 rounded-lg">
+        <div>
+            <div class="sendr flex justify-start w-full h-fit px-2 py-2 gap-1 items-center">
+                <img class="w-8 h-8 rounded-full object-cover" src="../../../assets/profileImg1.jpg"/>
+                <div class="max-w-[50%] md:max-w-[60%] bg-red-500 text-sm md:text-base text-white p-2 rounded-xl ">
+                    sendr messsage dsfdsfdssds fdsfdsfdsf dsfsf
+                </div>
+
+            </div>
+
+            <div class="recvr flex justify-end w-full h-fit px-2 py-2 gap-1 items-center">
+                <div class="max-w-[50%] md:max-w-[60%] bg-blue-500 text-sm md:text-base text-white p-2 rounded-xl ">
+                    recvr messsage dsfdsfdssds fdsfdsfdsf dsfsf
+                </div>
+                <img class="w-8 h-8 rounded-full object-cover" src="../../../assets/profileImg1.jpg"/>
+
+            </div>
+        </div>
+        
+
+        <form class="absolute bottom-2 w-[97%] bg-stone-200 py-2 px-4 flex items-center justify-between gap-4 rounded-xl">
+            <div class="fileUploadWrapper flex items-center justify-center cursor-pointer">
+                <label for="file" class="relative flex items-center justify-center cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 337 337" class="h-5 transition-all">
+                        <circle stroke-width="20" stroke="#6c6c6c" fill="none" r="158.5" cy="168.5" cx="168.5"></circle>
+                        <path stroke-linecap="round" stroke-width="25" stroke="#6c6c6c" d="M167.759 79V259"></path>
+                        <path stroke-linecap="round" stroke-width="25" stroke="#6c6c6c" d="M79 167.138H259"></path>
+                    </svg>
+                    <span class="tooltip absolute top-[-40px] hidden opacity-0 text-white text-xs bg-black px-2 py-1 rounded-md shadow-md transition-all">Add an image</span>
+                </label>
+                <input type="file" id="file" name="file" class="hidden" />
+            </div>
+            <input [(ngModel)]="chatMessage" 
+            type="text" 
+            name="text" 
+            id="messageInput" 
+            required 
+            placeholder="Message..." 
+            class="messageInput w-full bg-transparent border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-gray-500" />
+     
+            <button (click)="handleSubmit()" id="sendButton" class="sendButton flex items-center justify-center cursor-pointer transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 664 663" class="h-5 transition-all">
+                    <path fill="none" d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"></path>
+                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="33.67" stroke="#6c6c6c" d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"></path>
+                </svg>
+            </button>
+        </form>
+    </div>
+</div> 
+
+<ng-template #noChatSelected>
+    <div class="flex items-center justify-center h-full">
+        <p class="text-gray-500 text-lg">Select a chat to start messaging</p>
+    </div>
+</ng-template> 

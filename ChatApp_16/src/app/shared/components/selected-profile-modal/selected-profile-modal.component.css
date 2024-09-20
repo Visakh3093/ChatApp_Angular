@@ -1,0 +1,18 @@
+/* Spinner Styles */
+.spinner-border {
+    border-top-color: transparent; /* Transparent top border for spin effect */
+    border-right-color: currentColor;
+    border-bottom-color: currentColor;
+    border-left-color: currentColor;
+    animation: spin 0.5s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

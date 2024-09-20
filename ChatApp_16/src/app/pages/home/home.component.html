@@ -1,0 +1,26 @@
+<!-- <app-header />
+<div class="flex flex-row px-4 sm:px-16 py-3 gap-10 w-[100%]">
+
+    <div [ngClass]="{'hidden': isChatbox && 'md:hidden'}" class="sm:w-96 w-full md:flex">
+        <app-sidebar />
+    </div>
+    
+    <div [ngClass]="{ 'flex': isChatbox, 'md:flex': isChatbox}" class="w-full">
+        <app-chat-area class="w-[100%]" />
+    </div>
+</div> -->
+
+
+<app-header></app-header>
+<div class="flex flex-row px-4 sm:px-16 py-3 gap-10 w-full">
+
+  
+    <div [ngClass]="{'hidden': isChatbox, 'md:flex': true}" class="sm:w-96 w-full md:w-96">
+        <app-sidebar></app-sidebar>
+    </div>
+    
+ 
+    <div [ngClass]="{'hidden': !isChatbox, 'md:flex': true}" class="w-full md:w-full">
+        <app-chat-area class="w-[100%]"></app-chat-area>
+    </div>
+</div>

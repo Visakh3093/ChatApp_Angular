@@ -1,0 +1,28 @@
+<!-- User Profile Modal -->
+<div class="w-full h-screen fixed flex items-start py-32 justify-center bg-gray-900 bg-opacity-50 z-50">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-sm">
+      
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center px-6 py-4 bg-blue-500 text-white rounded-t-lg">
+        <h2 class="text-lg font-semibold">Welcome {{[profileData.name]}}</h2>
+        <button (click)="modalClose()" class="text-white hover:text-red-500">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Modal Content -->
+      <div class="px-6 py-4">
+        <div class="flex flex-col items-center">
+            <img src="../../../assets/profileImg1.jpg" alt="Profile Picture" class="w-32 h-32 rounded-full mb-4 object-cover">
+          <button class="mt-2 mb-4 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Change Photo</button>
+          <h3 class="text-xl font-semibold first-letter:capitalize">{{[profileData.name]}}</h3>
+          <p class="text-gray-600">{{profileData.email}}</p>
+          <p class="text-gray-600">+91 {{profileData.mobile}}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  

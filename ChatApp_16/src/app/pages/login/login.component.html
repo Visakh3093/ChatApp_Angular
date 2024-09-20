@@ -1,0 +1,61 @@
+
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+    <div class="w-96 backdrop-blur-lg bg-opacity-80 rounded-lg shadow-lg p-5 bg-slate-50 text-white">
+        <div class="flex justify-start gap-4 items-center">
+            <h2 class="text-2xl font-bold pb-5 text-gray-900" [class]="errorObj['login'] ?'text-red-600 underline':'text-gray-900'">SignIn</h2>
+           
+                <span *ngIf="errorObj['login']" class="text-sm font-semibold text-red-600 mb-3 first-letter:capitalize">{{errorObj['login']}}</span>
+            
+        </div>
+
+        <!-- <ng-toast />  takes default width of 350px and top-right position   -->
+<!-- <ng-toast [width]="400" /> configure width   -->
+        
+        <form [formGroup]="formData" (submit)="handleLogin()">
+          <div class="mb-4">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Email</label>
+            <input formControlName="email"
+              type="email"
+              id="email"
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full py-2.5 px-4"
+              placeholder="andrew@mail.com"
+              required
+              value=""
+            >
+                <span *ngIf="errorObj['email']" class="text-xs text-red-600">{{errorObj['email']}}</span>
+
+          </div>
+          <div class="mb-4">
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
+            <input formControlName="password"
+              type="password"
+              id="password"
+              class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full py-2.5 px-4"
+              placeholder="*********"
+              required
+              value=""
+            >
+            
+                <span *ngIf="errorObj['password']" class="text-xs text-red-600">{{errorObj['password']}}</span>
+            
+          </div>
+
+          <div>
+            <p class="text-red-500 pb-5"></p>
+          </div>
+          <div class="flex items-center justify-between mb-4">
+            <button
+              type="submit"
+              class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 px-5 w-full sm:w-auto"
+            >
+              Login
+            </button>
+            
+            <div class="flex items-center text-sm">
+              <p class="text-gray-500">Already have an account?</p>
+              <p class="underline cursor-pointer ml-1 text-blue-500" routerLink="/register">SignUp</p>
+            </div>
+          </div>
+        </form>
+      </div>
+</div>

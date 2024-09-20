@@ -1,0 +1,29 @@
+<div class="w-full h-screen fixed  flex items-center justify-center bg-gray-900 bg-opacity-50 z-40">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-md">
+
+    <div class="flex justify-between items-center px-6 py-4 bg-blue-500 text-white rounded-t-lg">
+      <h2 class="text-lg font-semibold">Search Users</h2>
+      <button (click)="handleModalClose()" class="text-white hover:text-gray-200">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="px-6 py-4 max-h-96 overflow-y-auto md:h-auto">
+      <form>
+        <div class="relative">
+          <input (input)="onInputChange($event)"  name="email" type="text"
+            class="w-full px-4 py-2 rounded-lg border-gray-300 shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+            placeholder="Type here..." autocomplete="off">
+        </div>
+        <div class="w-full py-4 px-2 flex flex-col gap-2 ">
+          <div *ngFor="let user of users" class="text-black  w-full py-3 bg-gray-100 flex justify-start px-3 rounded-md hover:bg-blue-300 hover:text-white" (click)="accessChat(user._id)">
+            <h1>{{ user.name }}</h1>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+  </div>
+</div>

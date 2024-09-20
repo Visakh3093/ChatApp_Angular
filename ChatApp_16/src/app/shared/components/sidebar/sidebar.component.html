@@ -1,0 +1,59 @@
+<div class="relative">
+    <div class="sidebar sm:w-96 bg-white h-[75vh] overflow-y-auto py-4 rounded-xl">
+       
+        <div class="sticky top-0 bg-white z-10 pt-3 pb-1">
+            <div class="group mb-3">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+                    <g>
+                        <path
+                            d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                        </path>
+                    </g>
+                </svg>
+                <input (input)="inputChange($event)"  placeholder="Search" type="search" class="input">
+            </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center gap-3 px-2">
+            <ng-container *ngIf="chats.length > 0; else noChats">
+                <div class="chat-boxes w-full gap-4 flex flex-col">
+                    <div *ngFor="let chat of chats" (click)="selectChat(chat)" [ngClass]="selectedChat == chat ? 'bg-blue-400 text-white' :''" class="relative hover:bg-blue-400 hover:text-white px-4 rounded-lg flex justify-start gap-15 py-2 items-center cursor-pointer">
+                        <div class="flex flex-row justify-between w-full gap-3">
+                            <div class="w-14 h-12 rounded-full bg-slate-200 flex justify-center items-center text-2xl">
+                                <i class="fa-regular fa-user"></i>
+                            </div>
+                            <div class="absolute left-12 bottom-2 text-xs h-4 w-4 rounded-full bg-green-500 border-white border-2"></div>
+                            <div class="w-full flex flex-col px-2">
+                                <div class="flex flex-row justify-between w-full font-semibold">
+                                    <h1 class="first-letter:capitalize">{{ chat.isGroupChat ? chat.chatName : getSender(chat.users) }}</h1>
+                                    <p class="hidden sm:block">09:00</p>
+                                </div>
+                                <p class="text-sm">hi there, How are you?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noChats>
+                <div class="w-full flex justify-center items-center py-10 text-gray-500">
+                   {{ errorMessage ? errorMessage : "Please add a new chat" }}
+                </div>
+            </ng-template>
+        </div>
+    
+    </div>
+
+    <div class="iconButtonWrapper ">
+        <div class="iconButton">
+            <i class="fa-solid fa-message"></i>
+        </div>
+        <div class="additionalButtons">
+            <div class="iconButtonSmall" (click)="handleNewGroup()">
+                <i class="fa-solid fa-people-group"></i>
+            </div>
+            <div class="iconButtonSmall" (click)="handleNewMessage()">
+                <i class="fa-solid fa-user-plus fa-fade"></i>
+            </div>
+        </div>
+    </div>
+</div>

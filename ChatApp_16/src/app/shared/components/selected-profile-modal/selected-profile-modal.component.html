@@ -1,0 +1,93 @@
+<!-- User Profile Modal -->
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+  <div class="bg-white rounded-lg shadow-2xl w-full max-w-md transform transition-all duration-300">
+
+    <div
+      class="flex justify-between items-center px-5 py-4 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-t-lg">
+      <h2 class="text-xl font-bold first-letter:capitalize">
+        {{ selectedUser.isGroupChat ? selectedUser.chatName : selectedUser.users[1].name }}
+      </h2>
+      <button (click)="modalClose()" class="focus:outline-none">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="px-6 py-6 text-center">
+      <ng-container *ngIf="selectedUser.isGroupChat; else userProfile">
+        <div class="text-left">
+          <p class="text-lg font-semibold text-gray-700 mb-4">Group Members:</p>
+          <ul class="space-y-2 max-h-60 overflow-y-auto">
+            <li *ngFor="let user of selectedUser.users"
+              class="flex items-center justify-between p-2 bg-gray-100 rounded-md">
+              <div class="flex items-center">
+                <img [src]="user.pic" alt="User Picture" class="w-8 h-8 rounded-full mr-3 object-cover">
+                <span class="text-gray-800 first-letter:capitalize"
+                  [ngClass]="user._id == currentUser._id ? 'font-bold' : ''">
+                  {{ user.name }}
+                </span>
+              </div>
+              <span *ngIf="user._id === selectedUser.groupAdmin._id" class="text-sm text-green-500 font-medium">
+                Admin
+              </span>
+              <span *ngIf="currentUser._id == selectedUser.groupAdmin._id && user._id !== selectedUser.groupAdmin._id"
+                class="text-sm text-red-500 font-medium cursor-pointer">
+                X
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="currentUser._id == selectedUser.groupAdmin._id" class="mt-6 w-full ">
+          <div class="flex items-center w-full space-x-2">
+            <input type="text" [(ngModel)]="groupName" value="{{ selectedUser.chatName }}" placeholder="Chat Name"
+              class="flex-1 px-4 py-2 border border-gray-300 rounded-md   focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition" />
+            <button (click)="handleGroupNameChange($event)"
+              class="px-5 py-2 bg-green-600 text-white rounded-md  hover:bg-green-500 transition focus:outline-none focus:ring-2 focus:ring-green-600">
+              Update
+            </button>
+          </div>
+          <span class="text-red-500" *ngIf="errorObj['groupName']">{{ errorObj['groupName'] }}</span>
+        </div>
+        <div *ngIf="currentUser._id == selectedUser.groupAdmin._id" class="relative mt-6 w-full">
+          <label class="block text-left text-lg font-medium text-gray-700 mb-2">Add New Member</label>
+          <div class="flex items-center w-full">
+            <input [(ngModel)]="searchUser" value="searchUser" (input)="onInputChange($event)" type="text"
+              placeholder="User Name"
+              class="flex-1 px-4 py-2 pr-8 border border-gray-300 rounded-md  focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition" />
+              <div *ngIf="isLoading" class="absolute right-4 flex items-center justify-center">
+                <div
+                  class="spinner-border text-blue-500 animate-spin inline-block w-4 h-4 border-4 rounded-full border-t-transparent border-blue-500">
+                </div>
+              </div>
+              <div *ngIf="users.length > 0" class="absolute top-full left-0 max-h-56 overflow-y-auto w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-50">
+                <div *ngFor="let user of users" class="px-4 py-2 hover:bg-blue-100 cursor-pointer"  (click)="manageUsers(user)">
+                    <span class="text-black">{{ user.name }}</span>
+                </div>
+            </div>
+          </div>
+          <!-- Spinner HTML -->
+
+        </div>
+        <div class="mt-6 flex justify-center">
+          <button (click)="leaveGroup()"
+            class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">Leave Group</button>
+        </div>
+      </ng-container>
+
+      <ng-template #userProfile>
+        <div class="mb-4">
+          <img [src]="selectedUser.users[1].pic" alt="Profile Picture"
+            class="w-28 h-28 rounded-full mx-auto border-4 border-indigo-200 object-cover shadow-md">
+        </div>
+        <p class="text-lg font-medium text-gray-700">{{ selectedUser.users[1].email }}</p>
+        <p class="text-sm text-gray-500 mt-1">Mobile: {{ selectedUser.users[1].mobile }}</p>
+      </ng-template>
+    </div>
+
+    <div class="px-6 py-4 bg-gray-100 rounded-b-lg flex justify-end">
+      <button (click)="modalClose()"
+        class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">Close</button>
+    </div>
+
+  </div>
+</div>
